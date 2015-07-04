@@ -1,0 +1,7 @@
+---
+
+- name: service - MariaDB
+  service:
+    name=mysql
+    enabled=yes
+    state=started

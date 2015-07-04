@@ -1,0 +1,23 @@
+---
+
+- name: depend - upgrade
+  apt:
+    upgrade=full
+  when: ansible_os_family == 'Debian'
+
+- name: depend - apt common packages
+  apt:
+    name={{ item }}
+    state=present
+    cache_valid_time=3600
+    update_cache=yes
+  with_items:
+    - software-properties-common
+  when: ansible_os_family == 'Debian'
+
+- name: depend - libselinux-python
+  yum:
+    name=libselinux-python
+    update_cache=yes
+  when: ansible_os_family == 'RedHat'
+

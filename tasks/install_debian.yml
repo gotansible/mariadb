@@ -1,0 +1,29 @@
+---
+
+- name: install_debian - mariadb-server key
+  apt_key:
+    keyserver=hkp://keyserver.ubuntu.com:80
+    id=0xcbcb082a1bb943db
+    state=present
+
+- name: install_debian - mariadb-server repo
+  apt_repository:
+    repo='deb http://ftp.osuosl.org/pub/mariadb/repo/10.1/ubuntu trusty main'
+    state=present
+
+- name: install_debian - mariadb-server apt-get
+  apt:
+    name=mariadb-server
+    state=present
+    update_cache=yes
+    cache_valid_time=3600
+
+- name: install_debian - Unattended package installation
+  shell: export DEBIAN_FRONTEND=noninteractive
+  changed_when: false
+
+- name: instal_debian - apt
+  apt: pkg={{ item }} state=present
+  with_items:
+    - mariadb-server
+    - mariadb-client

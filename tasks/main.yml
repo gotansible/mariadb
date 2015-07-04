@@ -1,0 +1,22 @@
+---
+
+- name: dependencies
+  include: depend.yml
+
+- name: debian install
+  include: install_debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: debian install
+  include: install_centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: configure
+  include: config.yml
+
+- name: service
+  include: service.yml
+
+- name: secure installation
+  include: secure_installation.yml
+

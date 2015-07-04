@@ -1,0 +1,7 @@
+---
+
+mariadb_conf_tpl: my.cnf.j2
+mariadb_conf_file: settings.cnf
+mariadb_root_password: changeme
+
+mariadb_secure_installation: false

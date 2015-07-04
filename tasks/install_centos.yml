@@ -1,0 +1,26 @@
+---
+
+#- name: install_centos - MariaDb key
+#  rpm_key:
+#    key: 1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
+#    state: present
+
+
+
+- name: install_centos - repo
+  copy:
+    src: mariadb.repo
+    dest: /etc/yum.repos.d/mariadb.repo
+    mode: 0644
+    owner: root
+    group: root
+
+- name: install_centos - yum maria db
+  yum:
+    name={{ item }}
+    state=present
+    update_cache=yes
+    enablerepo=mariadb
+  with_items:
+    - MariaDB-server
+    - MariaDB-client
