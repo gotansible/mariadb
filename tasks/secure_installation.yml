@@ -3,41 +3,10 @@
 # UPDATE mysql.user SET Password=PASSWORD('mysecret') WHERE User='root';
 # FLUSH PRIVILEGES;
 
-- name: secure_installation - Set root Password
-  mysql_user:
-    name=root
-    host={{ item }}
-    password={{ mariadb_root_password }}
-    state=present
-  with_items:
-    - localhost
-    - 127.0.0.1
-    - ::1
-
-- name: secure_installation - Reload privilege tables
-  command: 'mysql -ne "{{ item }}"'
-  with_items:
-    - FLUSH PRIVILEGES
-  changed_when: False
-
-- name: secure_installation - Add .my.cnf
-  template:
-    src=my.cnf.j2
-    dest=/root/.my.cnf
-    owner=root
-    group=root
-    mode=0600
-
 - name: secure_installation - Remove anonymous users
   command: 'mysql -ne "{{ item }}"'
   with_items:
     - DELETE FROM mysql.user WHERE User=''
-  changed_when: False
-
-- name: secure_installation - Disallow root login remotely
-  command: 'mysql -ne "{{ item }}"'
-  with_items:
-    - DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
   changed_when: False
 
 - name: secure_installation - Remove test database and access to it
@@ -48,9 +17,49 @@
   changed_when: False
   ignore_errors: True
 
+#- name: secure_installation - Reload privilege tables
+#  command: 'mysql -ne "{{ item }}"'
+#  with_items:
+#    - FLUSH PRIVILEGES
+#  changed_when: False
+
+# this will set the root password after which a password will be required
+- name: secure_installation - Set localhost root password
+  mysql_user:
+    name: root
+    host: localhost
+    password: "{{ mariadb_root_password }}"
+    state: present
+
+- name: secure_installation - Add .my.cnf
+  template:
+    src=my.cnf.j2
+    dest=/root/.my.cnf
+    owner=root
+    group=root
+    mode=0600
+
+- name: secure_installation - Set root Password
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ mariadb_root_password }}"
+    state: present
+  with_items:
+    - 127.0.0.1
+    - localhost
+    - ::1
+
 - name: secure_installation - Reload privilege tables
   command: 'mysql -ne "{{ item }}"'
   with_items:
     - FLUSH PRIVILEGES
   changed_when: False
+
+- name: secure_installation - Disallow root login remotely
+  command: 'mysql -ne "{{ item }}"'
+  with_items:
+    - DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
+  changed_when: False
+
 

@@ -5,8 +5,6 @@
 #    key: 1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
 #    state: present
 
-
-
 - name: install_centos - repo
   copy:
     src: mariadb.repo

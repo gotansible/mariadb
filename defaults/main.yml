@@ -1,6 +1,6 @@
 ---
 
-mariadb_conf_tpl: my.cnf.j2
+mariadb_conf_tpl: ""
 mariadb_conf_file: settings.cnf
 mariadb_root_password: changeme
 
