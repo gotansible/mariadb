@@ -1,5 +1,17 @@
 ---
 
+# list of db names
+mariadb_databases: 
+#  - name: mydb
+#    state: present
+
+mariadb_users: []
+#  - name: test
+#    password: password
+#    priv: ''
+#    host: ''
+#    state: present
+
 mariadb_conf_tpl: ""
 mariadb_conf_file: settings.cnf
 mariadb_root_password: changeme

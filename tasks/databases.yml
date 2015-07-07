@@ -1,0 +1,9 @@
+---
+
+- name: databases
+  mysql_db:
+    name={{ item.name }}
+    state={{ item.state | default('present') }}
+  with_items: mariadb_databases
+
+

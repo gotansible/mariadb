@@ -20,3 +20,9 @@
 - name: secure installation
   include: secure_installation.yml
 
+- name: databases
+  include: databases.yml
+
+- name: users
+  include: users.yml
+
