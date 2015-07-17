@@ -2,7 +2,7 @@
 
 - name: config - settings
   template:
-    src=mysql.cnf.j2
+    src=my.cnf.j2
     dest={{ mariadb_conf_dir }}/my.cnf
     owner=root
     group=root
