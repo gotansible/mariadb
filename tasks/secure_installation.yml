@@ -13,7 +13,7 @@
 
 - name: secure_installation - Add .my.cnf
   template:
-    src=my.cnf.j2
+    src=user.cnf.j2
     dest=/root/.my.cnf
     owner=root
     group=root

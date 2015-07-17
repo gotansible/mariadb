@@ -1,20 +1,11 @@
 ---
 
-#- name: config - settings
-#  template:
-#    src={{ mariadb_conf_tpl }}
-#    dest={{ mariadb_conf_dir[ansible_distribution] }}/{{ mariadb_conf_file }} 
-#    owner=root
-#    group=root
-#    mode=0644
-#  notify: restart mariadb
-
-#- name: config - settings
-#  template:
-#    src=my.cnf.j2
-#    dest=/root/.my.cnf
-#    owner=root
-#    group=root
-#    mode=0644
-#  notify: restart mariadb
+- name: config - settings
+  template:
+    src=mysql.cnf.j2
+    dest={{ mariadb_conf_dir }}/my.cnf
+    owner=root
+    group=root
+    mode=0644
+  notify: restart mariadb
 

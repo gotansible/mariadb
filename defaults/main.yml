@@ -17,3 +17,6 @@ mariadb_conf_file: settings.cnf
 mariadb_root_password: changeme
 
 mariadb_secure_installation: false
+
+mariadb_conf_bind_address: 127.0.0.1
+mariadb_conf_dir: /etc/mysql
