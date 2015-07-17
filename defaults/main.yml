@@ -9,7 +9,7 @@ mariadb_users: []
 #  - name: test
 #    password: password
 #    priv: ''
-#    host: ''
+#    host: '%'
 #    state: present
 
 mariadb_conf_tpl: ""
