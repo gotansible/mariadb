@@ -3,10 +3,12 @@
   sudo: true
   roles:
     - role: mariadb
+      mariadb_conf_bind_address: "{{ ansible_default_ipv4['address'] }}"
       mariadb_root_password: abc123def
       mariadb_databases:
         - name: wordpress
       mariadb_users:
         - name: wpuser
+          host: "%"
           password: some123pass
           priv: 'wordpress.*:ALL'
